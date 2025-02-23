@@ -50,3 +50,44 @@ impl CsvConverter for CsvFileConverter {
  
 }
 
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_default_parse_options() {
+        let options = get_default_parse_options();
+        assert!(
+            options.try_parse_dates,
+            "try_parse_dates should be set to true"
+        );
+        assert_eq!(
+            options.separator,
+            b';',
+            "separator should be the semicolon character"
+        );
+        assert!(
+            options.decimal_comma,
+            "decimal_comma should be enabled"
+        );
+    }
+
+    #[test]
+    fn test_convert_has_local_file_returns_content(){
+        let file = "resources/file.csv";
+        let converter = CsvFileConverter{};
+
+
+        let result = converter.convert(file);
+
+        assert!(result.is_ok());
+
+        let df = result.unwrap();
+
+        assert!(df.size() >= 6);
+        assert_eq!(df.shape(), (6,4));
+
+    }
+}
