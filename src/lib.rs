@@ -86,7 +86,7 @@ mod tests {
 
         let df = result.unwrap();
 
-        assert!(df.size() >= 6);
+        assert_eq!(df.size(), 24);
         assert_eq!(df.shape(), (6,4));
 
     }
