@@ -90,4 +90,21 @@ mod tests {
         assert_eq!(df.shape(), (6,4));
 
     }
+
+    #[test]
+    fn test_expected_contents_of_dataframe_from_csv_file(){
+        let file = "resources/file.csv";
+        let converter = CsvFileConverter{};
+        let df = converter.convert(file).expect("Failed to convert CSV file");
+    
+        let expected_df = df![
+            "konsumgruppe" => &["TOTAL Totalindeks", "TOTAL Totalindeks", "TOTAL Totalindeks", "TOTAL Totalindeks", "TOTAL Totalindeks", "TOTAL Totalindeks"],
+            "måned" => &["2024M12", "2024M12", "2024M12", "2025M01", "2025M01", "2025M01"],
+            "statistikkvariabel" => &["Konsumprisindeks (2015=100)", "Månedsendring (prosent)", "12-måneders endring (prosent)", "Konsumprisindeks (2015=100)", "Månedsendring (prosent)", "12-måneders endring (prosent)"],
+            "03013: Konsumprisindeks, etter konsumgruppe, måned og statistikkvariabel" => &[134.8, -0.1, 2.2, 135.1, 0.2, 2.3]
+        ].unwrap();
+    
+        assert_eq!(df, expected_df);
+    }
+
 }
