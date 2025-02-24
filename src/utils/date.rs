@@ -6,10 +6,12 @@ use crate::types::date::YearMonth;
 
 //TODO: return result here, or option
 pub fn extract_year_month_from_string(date: &str) -> Result<YearMonth, ParseIntError> {
-    let date = date.split("M").collect::<Vec<&str>>();
-    let year = date[0].parse::<u32>()?;
-    let month = date[1].parse::<u32>()?;
-    Ok(YearMonth::new(year, month))
+    // if date.contains("M"){
+        let date = date.split("M").collect::<Vec<&str>>();
+        let year = date[0].parse::<u32>()?;
+        let month = date[1].parse::<u32>()?;
+        Ok(YearMonth::new(year, month))
+    // }
 }
 
 
@@ -31,6 +33,21 @@ mod tests {
         let year_month = extract_year_month_from_string(date).unwrap();
         assert_eq!(year_month.year, year);
         assert_eq!(year_month.month, month);
+    }
+
+    #[rstest]
+    #[case("")]
+    #[case("M")]
+    #[case("asdf")]
+    #[case("None")]
+    #[case("    ")]
+    #[case(" ")]
+    #[case("\n")]
+    #[case("\t")]
+    #[case("\t\n")]
+    fn test_extract_year_month_from_string_has_invalid_input(#[case] date: &str) {
+        let year_month = extract_year_month_from_string(date);
+        assert!(year_month.is_err());
     }
 
 }
