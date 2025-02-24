@@ -1,17 +1,15 @@
 
 
-use std::{num::ParseIntError, string::ParseError};
+use std::num::ParseIntError;
 
 use crate::types::date::YearMonth;
 
 //TODO: return result here, or option
 pub fn extract_year_month_from_string(date: &str) -> Result<YearMonth, ParseIntError> {
-    // if date.contains("M"){
-        let date = date.split("M").collect::<Vec<&str>>();
-        let year = date[0].parse::<u32>()?;
-        let month = date[1].parse::<u32>()?;
-        Ok(YearMonth::new(year, month))
-    // }
+    let date = date.split("M").collect::<Vec<&str>>();
+    let year = date[0].parse::<u32>()?;
+    let month = date[1].parse::<u32>()?;
+    Ok(YearMonth::new(year, month))
 }
 
 
