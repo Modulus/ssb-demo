@@ -108,6 +108,7 @@ mod tests {
             "statistikkvariabel" => &["Konsumprisindeks (2015=100)", "Månedsendring (prosent)", "12-måneders endring (prosent)", "Konsumprisindeks (2015=100)", "Månedsendring (prosent)", "12-måneders endring (prosent)"],
             "03013: Konsumprisindeks, etter konsumgruppe, måned og statistikkvariabel" => &[134.8, -0.1, 2.2, 135.1, 0.2, 2.3]
         ].unwrap();
+
     
         assert_eq!(df, expected_df);
     }
