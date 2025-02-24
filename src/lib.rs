@@ -3,6 +3,11 @@ use reqwest::blocking::get;
 use polars::prelude::*;
 use std::io::Cursor;
 
+mod utils;
+mod types;
+
+use utils::date::extract_year_month_from_string;
+
 pub trait CsvConverter {
     fn convert(&self, target: &str) -> PolarsResult<DataFrame>;
 
